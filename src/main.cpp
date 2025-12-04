@@ -20,7 +20,10 @@ void printUsage(const char* progName) {
     cerr << "  --help, -h     Show this help message" << endl;
 }
 
+// Step 1: First thing the program does is enter main
 int main(int argc, char* argv[]) {
+    // Step 2: Check that Arguments/File were provided by user
+    // If not, just print usage info and exit
     if (argc < 2) {
         printUsage(argv[0]);
         return 1;
@@ -29,7 +32,10 @@ int main(int argc, char* argv[]) {
     string filename;
     bool debugMode = false;
     
-    // Parse command line arguments
+    // Step 3: Parse/Check command line arguments
+    // While parsing here, we can set flags before starting the simulation
+    // If user types bad args, we can catch it and go Unknown option and lists options and exit
+    // We Do Not want to run the simulation if args are bad
     for (int i = 1; i < argc; i++) {
         string arg = argv[i];
         
@@ -47,19 +53,23 @@ int main(int argc, char* argv[]) {
         }
     }
     
+    // Step 4: Ensure the user actually provided an input file name
     if (filename.empty()) {
+        // if no filename provided, print error and exit
         cerr << "Error: No input file specified" << endl;
         printUsage(argv[0]);
         return 1;
     }
     
-    // Open input file
+    // Step 5: Try to open the input file
     ifstream inputFile(filename);
     if (!inputFile) {
+        // Could not open file, print error and exit
         cerr << "Error: Could not open file '" << filename << "'" << endl;
         return 1;
     }
     
+    // Runs when file is successfully opened
     cout << "=== MIPS PIPELINE SIMULATOR ===" << endl;
     cout << "CS3339 Fall 2025" << endl;
     cout << "Input file: " << filename << endl;
@@ -67,18 +77,28 @@ int main(int argc, char* argv[]) {
         cout << "Debug mode: ENABLED" << endl;
     }
     
-    // Parse the assembly file
+    // After successfully opening the file..
+    // Step 6: ErrorHandler is created to collect any parsing errors from errors.cpp
     ErrorHandler errorHandler;
     Parser parser(errorHandler);
     
+    // Step 7: Parse the assembly file with parser.cpp
+    //   - Reads each line of assembly
+    //   - Identifies labels 
+    //   - Parses instructions (opcode, registers, immediates)
+    //   - Creates Instruction objects with all fields filled in
+    //   - Reports errors to ErrorHandler if syntax is bad
     Program program = parser.parse(inputFile);
     inputFile.close();
     
-    // Check for parsing errors
+    // Step 8: Check for parsing errors
+    // errors.cpp checks if any errors were collected
     if (errorHandler.hasErrors()) {
         errorHandler.printErrors();
         
+        // If the assembly file is invalid, it stops here
         // Generate error file name from input file
+        // For example, input.asm -> input.err
         string errorFile = filename;
         size_t dotPos = errorFile.rfind('.');
         if (dotPos != string::npos) {
@@ -98,7 +118,14 @@ int main(int argc, char* argv[]) {
     
     cout << "Instructions loaded: " << program.instructions.size() << endl;
     
-    // Create and run the CPU simulator
+    // If Parsing Succeeds..
+    // Step 9: Create the CPU simulator
+    // The CPU constructor in cpu.cpp initializes:
+    // - Pipeline registers (IF_ID, ID_EX, EX_MEM, MEM_WB)
+    // - 32 registers, all set to 0
+    // - 1024 words of memory
+    // Step 10: Run the simulation
+    // cpu.run() executes the pipeline cycle by cycle until complete
     try {
         CPU cpu(program, debugMode);
         cpu.run();

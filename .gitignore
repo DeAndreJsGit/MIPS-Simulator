@@ -13,3 +13,4 @@ screenshots/*
 *.out
 mips_sim
 mips_sim.exe
+build/
