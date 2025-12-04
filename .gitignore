@@ -1,0 +1,15 @@
+# Ignore things we dont want to track
+.vscode/
+
+# Ignore output files
+results.txt
+
+# Ignore screenshots or presentation images
+screenshots/
+screenshots/*
+
+# Ignore build artifacts (optional but recommended)
+*.o
+*.out
+mips_sim
+mips_sim.exe
