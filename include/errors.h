@@ -6,6 +6,8 @@
 #include <fstream>
 #include <iostream>
 
+// Defines Error struct and ErrorHandler class for collecting, printing, and saving parsing errors
+
 // Represents a single error with line number and message
 struct Error {
     int line;

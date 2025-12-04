@@ -25,7 +25,7 @@ string opcodeToString(Opcode op) {
     }
 }
 
-// Step 9: CPU is constructed for main.cpp after successful parsing of assembly file
+// CPU is constructed for main.cpp after successful parsing of assembly file
 // It sets the program counter pc to 0 so we start at the first instruction.
 // It sets cycleCount to 0.
 // It stores whether debug mode is on or off.
@@ -48,7 +48,7 @@ CPU::CPU(const Program& prog, bool debug)
     mem_wb = MEM_WB();
 }
 
-// Step 10: CPU helper functions that delegate to PipelineStages
+// CPU helper functions that delegate to PipelineStages
 // generateControl and executeALU forward the work to PipelineStages in stages.cpp
 ControlSignals CPU::generateControl(const Instruction& instr) {
     return PipelineStages::generateControl(instr);
@@ -62,7 +62,7 @@ bool CPU::pipelineEmpty() const {
     return !if_id.valid && !id_ex.valid && !ex_mem.valid && !mem_wb.valid;
 }
 
-// Step 11: stepPipeline executes one cycle of the pipeline
+// stepPipeline executes one cycle of the pipeline
 void CPU::stepPipeline() {
     // Next cycle values
     IF_ID next_if_id;
@@ -96,7 +96,7 @@ void CPU::stepPipeline() {
         pc++;
     }
 
-    // === Branch / Jump handling ===
+    // Branch / Jump handling 
     if (branchTaken) {
         next_if_id = IF_ID();   // flush
         next_id_ex = ID_EX();   // flush
@@ -112,7 +112,7 @@ void CPU::stepPipeline() {
     // Enforce $zero = 0
     registers[0] = 0;
 }
-// Step 12: Main simulation loop that runs until all instructions complete
+// Main simulation loop that runs until all instructions complete
 // Shows each instruction’s binary + assembly (and debug info if enabled)
 void CPU::run() {
     cout << "\n=== STARTING SIMULATION ===" << endl;

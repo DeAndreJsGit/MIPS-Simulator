@@ -6,6 +6,8 @@
 #include <string>
 #include <istream>
 
+// Declares the Parser class with parse() method and helper functions for reading assembly files
+
 class Parser {
 private:
     ErrorHandler& errorHandler;

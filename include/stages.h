@@ -3,8 +3,8 @@
 
 #include "cpu.h"
 
-// Pipeline stage functions
-// These operate on the CPU state and update the pipeline registers
+// Declares PipelineStages class with static functions for each stage 
+// (ifStage, idStage, exStage, memStage, wbStage) plus generateControl() and executeALU()
 
 class PipelineStages {
 public:

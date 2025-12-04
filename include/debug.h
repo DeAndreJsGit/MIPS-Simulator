@@ -6,6 +6,8 @@
 #include <vector>
 using namespace std;
 
+// Declares Debug class with static print functions for registers, memory, pipeline state, and binary representation
+
 class Debug {
 public:
     // Print register file contents

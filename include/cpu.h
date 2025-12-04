@@ -7,6 +7,10 @@
 #include <array>
 #include <unordered_map>
 
+// Defines all core data structures: 
+// Instruction, Opcode, ControlSignals, pipeline registers (IF_ID, ID_EX, EX_MEM, MEM_WB), 
+// Program, and the CPU class
+
 // Supported MIPS opcodes
 enum class Opcode {
     ADD, ADDI, SUB, MUL,

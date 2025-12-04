@@ -124,10 +124,23 @@ int main(int argc, char* argv[]) {
     // - Pipeline registers (IF_ID, ID_EX, EX_MEM, MEM_WB)
     // - 32 registers, all set to 0
     // - 1024 words of memory
-    // Step 10: Run the simulation
-    // cpu.run() executes the pipeline cycle by cycle until complete
     try {
         CPU cpu(program, debugMode);
+        // Step 10: Run the simulation
+        //   cpu.cpp: cpu.run() starts the main simulation loop
+        //   - Calls stepPipeline() each cycle
+        //   
+        //   stages.cpp: Each cycle, stepPipeline() calls:
+        //   - wbStage()  - Write results back to registers
+        //   - memStage() - Read/write memory (LW/SW)
+        //   - exStage()  - Execute ALU operations
+        //   - idStage()  - Decode instruction, read registers
+        //   - ifStage()  - Fetch next instruction
+        //
+        //   debug.cpp: If debugMode is on, prints after each cycle:
+        //   - Pipeline register contents
+        //   - Register file state
+        //   - Control signals
         cpu.run();
         
         cout << endl << "=== SIMULATION COMPLETE ===" << endl;
