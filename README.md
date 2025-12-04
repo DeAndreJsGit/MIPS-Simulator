@@ -1,171 +1,269 @@
-# MIPS Pipeline Simulator
+# **MIPS Pipeline Simulator**
 
-## CS3339 Fall 2025 Course Project
+### **CS3339 – Fall 2025 Course Project**
 
-A 5-stage pipelined MIPS processor simulator written in C++. The simulator executes MIPS assembly programs instruction-by-instruction and displays the final machine state (registers and memory).
+A 5-stage pipelined MIPS processor simulator written in C++.
+The simulator created loads a MIPS assembly program, decodes each instruction,
+executes the instruction through a pipeline, and displays the final register and memory state.
 
-## Features
+---
 
-- **5-Stage Pipeline**: Faithful implementation of IF, ID, EX, MEM, WB stages
-- **Pipeline Registers**: IF/ID, ID/EX, EX/MEM, MEM/WB state registers
-- **Control Signals**: Proper generation of control signals during decode
-- **Debug Mode**: Step-by-step pipeline visualization
-- **Binary Representation**: Shows binary encoding of instructions
-- **Error Handling**: Detailed error messages with error file generation
+# **Features**
 
-## Supported Instructions
+* **5-Stage Pipeline**
+  Faithful implementation of **IF, ID, EX, MEM, WB**
 
-| Opcode | Description |
-|--------|-------------|
-| ADD    | Signed integer addition (R-type) |
-| ADDI   | Add immediate (I-type) |
-| SUB    | Signed integer subtraction (R-type) |
-| MUL    | Integer multiplication (R-type) |
-| AND    | Bitwise AND (R-type) |
-| OR     | Bitwise OR (R-type) |
-| SLL    | Shift left logical |
+* **Pipeline Registers**
+  IF/ID, ID/EX, EX/MEM, MEM/WB
+
+* **Control Signal Generation**
+  Produced during decode stage
+
+* **Debug Mode**
+  Cycle-by-cycle pipeline visualization
+
+* **Binary Instruction Output**
+  Shows each instruction’s 32-bit encoding
+
+* **Error Handling**
+  Invalid instructions or malformed assembly generate `.err` files
+
+---
+
+# **Supported Instructions**
+
+| Opcode | Description         |
+| ------ | ------------------- |
+| ADD    | Signed integer add  |
+| ADDI   | Add immediate       |
+| SUB    | Signed subtract     |
+| MUL    | Integer multiply    |
+| AND    | Bitwise AND         |
+| OR     | Bitwise OR          |
+| SLL    | Shift left logical  |
 | SRL    | Shift right logical |
-| LW     | Load word from memory |
-| SW     | Store word to memory |
-| BEQ    | Branch if equal |
-| J      | Unconditional jump |
-| NOP    | No operation |
+| LW     | Load word           |
+| SW     | Store word          |
+| BEQ    | Branch if equal     |
+| J      | Jump                |
+| NOP    | No operation        |
 
-## Building
+---
 
-### Requirements
-- C++17 compatible compiler (g++ recommended)
-- Make
+# **Project Structure**
 
-### Compile
-```bash
+```
+MIPS-Simulator/
+│
+├── src/
+│   ├── main.cpp       # Entry point
+│   ├── parser.cpp     # Assembly parsing
+│   ├── cpu.cpp        # CPU + simulation loop
+│   ├── stages.cpp     # IF/ID/EX/MEM/WB logic
+│   ├── debug.cpp      # Debug printing
+│   └── errors.cpp     # Error reporting
+│
+├── include/
+│   ├── parser.h
+│   ├── cpu.h
+│   ├── stages.h
+│   ├── debug.h
+│   └── errors.h
+│
+├── tests/             # Test .asm files
+├── Makefile
+└── README.md
+```
+
+---
+# **Building the Project**
+
+## **Requirements**
+
+* C++17-compatible compiler (`g++` recommended)
+* Make utility
+
+---
+
+## **Building on Windows (MinGW)**
+
+If you are using **MinGW**, the build tool is:
+
+```
+mingw32-make
+```
+
+### Build:
+
+```
+mingw32-make
+```
+
+### Debug build:
+
+```
+mingw32-make debug
+```
+
+### Clean:
+
+```
+mingw32-make clean
+```
+
+---
+
+## **Building on Linux / macOS**
+
+(Using standard GNU Make)
+
+### Build:
+
+```
 make
 ```
 
-### Debug Build
-```bash
+### Debug build:
+
+```
 make debug
 ```
 
-### Clean
-```bash
+### Clean:
+
+```
 make clean
 ```
 
-## Usage
+---
 
-### Basic Execution
-```bash
+# **Usage**
+
+### **Basic Execution**
+
+```
 ./mips_sim <input.asm>
 ```
 
-### With Debug Output
-```bash
+### **With Debug Mode**
+
+```
 ./mips_sim <input.asm> --debug
 ```
+
 or
-```bash
+
+```
 ./mips_sim <input.asm> -d
 ```
 
-### Help
-```bash
+### **Help**
+
+```
 ./mips_sim --help
 ```
 
-## Input Format
+---
 
-The simulator accepts MIPS assembly files with the following conventions:
+# **Input Format**
 
-- Comments start with `#`
-- Labels end with `:`
-- Register names: `$0`-`$31` or named (`$t0`, `$s0`, `$zero`, etc.)
-- Memory operands: `offset($base)` format
+* Comments start with `#`
+* Labels end with `:`
+* Registers may be numbered or named
+  (`$0`, `$8`, `$t0`, `$s0`, `$zero`, etc.)
+* Memory operands use:
 
-### Example Program
+  ```
+  offset(base)
+  ```
+
+## **Debug Mode**
+
+Additionally displays **each cycle**:
+
+* Pipeline registers
+* Control signals
+* Program counter
+* Register file snapshot
+
+---
+
+### **Example Program**
+
 ```assembly
 # Simple arithmetic test
-        ADDI $t0, $zero, 10    # t0 = 10
-        ADDI $t1, $zero, 5     # t1 = 5
-        ADD  $t2, $t0, $t1     # t2 = t0 + t1 = 15
-        SUB  $t3, $t0, $t1     # t3 = t0 - t1 = 5
-        SW   $t2, 0($zero)     # mem[0] = 15
-        LW   $t4, 0($zero)     # t4 = mem[0] = 15
+ADDI $t0, $zero, 10      # t0 = 10
+ADDI $t1, $zero, 5       # t1 = 5
+ADD  $t2, $t0, $t1       # t2 = 15
+SUB  $t3, $t0, $t1       # t3 = 5
+SW   $t2, 0($zero)       # mem[0] = 15
+LW   $t4, 0($zero)       # t4 = 15
 ```
 
-## Output
+---
 
-### Normal Mode
-Displays:
-- Number of instructions loaded
-- Binary representation of instructions
-- Final register file contents (non-zero values)
-- Final memory contents (non-zero values)
-- Total cycle count
+# **Output Description**
 
-### Debug Mode
-Additionally displays after each cycle:
-- Current cycle number
-- Program counter (PC)
-- Contents of all pipeline registers (IF/ID, ID/EX, EX/MEM, MEM/WB)
-- Control signals for each stage
-- Register file snapshot
+## **Normal Mode**
 
-## Project Structure
+Shows:
 
-```
-mips_simulator/
-├── main.cpp      # Entry point, argument parsing
-├── parser.cpp    # Assembly file parsing
-├── parser.h
-├── cpu.cpp       # CPU simulation logic
-├── cpu.h         # Data structures (Instruction, Pipeline registers)
-├── stages.cpp    # Pipeline stage implementations
-├── stages.h
-├── debug.cpp     # Debug output formatting
-├── debug.h
-├── errors.cpp    # Error handling
-├── errors.h
-├── Makefile      # Build configuration
-└── README.md     # This file
-```
+* Instruction count
+* Binary encoding table
+* Final register file
+* Final memory state
+* Total cycle count
 
-## Design Principles
+---
 
-The simulator follows **Single Responsibility Principle (SRP)**:
+# **Design Principles**
 
-- **Parser**: Handles all assembly parsing and label resolution
-- **CPU**: Manages architectural state and simulation loop
-- **Stages**: Implements individual pipeline stage logic
-- **Debug**: Handles all output formatting
-- **Errors**: Manages error collection and reporting
+* **Parser**
+  Cleans input assembly, extracts labels, constructs `Instruction` objects
 
-## Error Handling
+* **CPU**
+  Manages registers, memory, PC, and pipeline registers
+  Controls simulation loop + branching logic
 
-When parsing errors occur:
-1. Errors are printed to stderr
-2. An `.err` file is generated with detailed error information
-3. Simulation does not proceed
+* **Pipeline Stages**
+  Each stage implemented as its own function for clarity
 
-Common errors detected:
-- Unknown instructions
-- Invalid register names
-- Undefined labels
-- Malformed operands
-- Invalid immediate values
+* **Debug System**
+  All printing and formatting isolated in one module
 
-## Notes
+* **Error System**
+  Detects invalid syntax and produces `.err` diagnostic files
 
-- Input programs are assumed to be **free of data and control hazards**
-- Memory is word-addressed (4 bytes per word)
-- Memory size: 1024 words (4KB)
-- All registers initialize to 0
-- `$zero` is always kept at 0
+---
 
-## Authors
+# **Error Handling**
 
-CS3339 Fall 2025 Team Project
+The simulator detects:
 
-## License
+* Unknown or misspelled instructions
+* Invalid register names
+* Undefined labels
+* Bad immediate values
+* Incorrect operand formats
 
-For educational purposes only.
+If errors occur:
+
+1. Error message prints to console
+2. A `.err` file is generated with details
+3. Simulation does not start
+
+---
+
+# **Notes**
+
+* Input programs should be **free of hazards** (as permitted by the spec)
+* Memory is **word-addressable** (4 bytes per word)
+* Memory size: **1024 words** (4 KB)
+* All registers initialize to 0
+* `$zero` is always forced to 0
+
+---
+
+# **Author**
+
+**DeAndre Johnson - Texas State University**
