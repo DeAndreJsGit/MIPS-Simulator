@@ -80,6 +80,10 @@ MIPS-Simulator/
 
 ## **Requirements**
 
+Run all `make` commands from the project root folder (where the `Makefile` is located)
+
+---
+
 * C++17-compatible compiler (`g++` recommended)
 * Make utility
 
@@ -97,18 +101,6 @@ mingw32-make
 
 ```
 mingw32-make
-```
-
-### Debug build:
-
-```
-mingw32-make debug
-```
-
-### Clean:
-
-```
-mingw32-make clean
 ```
 
 ---
@@ -134,6 +126,14 @@ make debug
 ```
 make clean
 ```
+
+---
+
+> **Note:** If all else fails, simply compile manually by running in terminal:
+
+> ```
+> g++ -std=c++17 -Wall -Iinclude src/main.cpp src/parser.cpp src/cpu.cpp src/stages.cpp src/debug.cpp src/errors.cpp -o mips_sim
+> ```
 
 ---
 
@@ -163,6 +163,11 @@ or
 ./mips_sim --help
 ```
 
+### **Example**
+
+```
+./mips_sim tests/test.asm
+```
 ---
 
 # **Input Format**
@@ -219,7 +224,7 @@ Shows:
 # **Design Principles**
 
 * **Parser**
-  Cleans input assembly, extracts labels, constructs `Instruction` objects
+  Cleans input assembly, extracts labels, constructs Instruction objects
 
 * **CPU**
   Manages registers, memory, PC, and pipeline registers
@@ -260,10 +265,10 @@ If errors occur:
 * Memory is **word-addressable** (4 bytes per word)
 * Memory size: **1024 words** (4 KB)
 * All registers initialize to 0
-* `$zero` is always forced to 0
+* $zero is always forced to 0
 
 ---
 
-# **Author**
+# **Authors**
 
-**DeAndre Johnson - Texas State University**
+**DeAndre Johnson & Brandon Montesinos**

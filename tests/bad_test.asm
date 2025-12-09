@@ -1,4 +1,4 @@
-# Bad MIPS file with errors
+# Bad MIPS test with errors
         ADDI $t0, $zero, 10
         BADOP $t1, $t2         # Unknown instruction
         ADD $t3                # Wrong number of operands

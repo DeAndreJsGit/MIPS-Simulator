@@ -1,6 +1,5 @@
-# MIPS Test Program - Uses all supported instructions
-# NO DATA HAZARDS - properly scheduled
-# CS3339 Fall 2025
+# MIPS Test Program that uses all supported instructions
+# NO DATA HAZARDS. Properly scheduled
 
 # Initialize values with enough NOPs to avoid hazards
         ADDI $t0, $zero, 10    # t0 = 10

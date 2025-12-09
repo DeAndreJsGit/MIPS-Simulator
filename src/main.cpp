@@ -1,6 +1,6 @@
 // MIPS Pipeline Simulator - CS3339 
 // A 5-stage pipelined MIPS processor simulator that executes
-// assembly instructions and displays register/memory state.
+// assembly instructions and displays register/memory state
 
 #include <iostream>
 #include <fstream>
