@@ -1,0 +1,1128 @@
+=== MIPS PIPELINE SIMULATOR ===
+CS3339 Fall 2025
+Input file: tests/test.asm
+Instructions loaded: 72
+
+=== STARTING SIMULATION ===
+
+--- Binary Representation ---
+Addr                            Binary  Assembly
+------------------------------------------------------------
+   0  00100000000010000000000000001010  ADDI $t0, $zero, 10
+   4  00000000000000000000000000000000  NOP
+   8  00000000000000000000000000000000  NOP
+  12  00000000000000000000000000000000  NOP
+  16  00100000000010010000000000000101  ADDI $t1, $zero, 5
+  20  00000000000000000000000000000000  NOP
+  24  00000000000000000000000000000000  NOP
+  28  00000000000000000000000000000000  NOP
+  32  00000001000010010101000000100000  ADD  $t2, $t0, $t1
+  36  00000000000000000000000000000000  NOP
+  40  00000000000000000000000000000000  NOP
+  44  00000000000000000000000000000000  NOP
+  48  00000001000010010101100000100010  SUB  $t3, $t0, $t1
+  52  00000000000000000000000000000000  NOP
+  56  00000000000000000000000000000000  NOP
+  60  00000000000000000000000000000000  NOP
+  64  01110001000010010110000000000010  MUL  $t4, $t0, $t1
+  68  00000000000000000000000000000000  NOP
+  72  00000000000000000000000000000000  NOP
+  76  00000000000000000000000000000000  NOP
+  80  00100000000011010000000000001111  ADDI $t5, $zero, 15
+  84  00000000000000000000000000000000  NOP
+  88  00000000000000000000000000000000  NOP
+  92  00000000000000000000000000000000  NOP
+  96  00100000000011100000000011110000  ADDI $t6, $zero, 240
+ 100  00000000000000000000000000000000  NOP
+ 104  00000000000000000000000000000000  NOP
+ 108  00000000000000000000000000000000  NOP
+ 112  00000001101011100111100000100100  AND  $t7, $t5, $t6
+ 116  00000000000000000000000000000000  NOP
+ 120  00000000000000000000000000000000  NOP
+ 124  00000000000000000000000000000000  NOP
+ 128  00000001101011101100000000100101  OR   $t8, $t5, $t6
+ 132  00000000000000000000000000000000  NOP
+ 136  00000000000000000000000000000000  NOP
+ 140  00000000000000000000000000000000  NOP
+ 144  00100000000100000000000000000100  ADDI $s0, $zero, 4
+ 148  00000000000000000000000000000000  NOP
+ 152  00000000000000000000000000000000  NOP
+ 156  00000000000000000000000000000000  NOP
+ 160  00000000000100001000100010000000  SLL  $s1, $s0, 2
+ 164  00000000000000000000000000000000  NOP
+ 168  00000000000000000000000000000000  NOP
+ 172  00000000000000000000000000000000  NOP
+ 176  00000000000100001001000001000010  SRL  $s2, $s0, 1
+ 180  00000000000000000000000000000000  NOP
+ 184  00000000000000000000000000000000  NOP
+ 188  00000000000000000000000000000000  NOP
+ 192  10101100000010100000000000000000  SW   $t2, 0($zero)
+ 196  00000000000000000000000000000000  NOP
+ 200  00000000000000000000000000000000  NOP
+ 204  00000000000000000000000000000000  NOP
+ 208  10101100000011000000000000000100  SW   $t4, 4($zero)
+ 212  00000000000000000000000000000000  NOP
+ 216  00000000000000000000000000000000  NOP
+ 220  00000000000000000000000000000000  NOP
+ 224  10001100000100110000000000000000  LW   $s3, 0($zero)
+ 228  00000000000000000000000000000000  NOP
+ 232  00000000000000000000000000000000  NOP
+ 236  00000000000000000000000000000000  NOP
+ 240  10001100000101000000000000000100  LW   $s4, 4($zero)
+ 244  00000000000000000000000000000000  NOP
+ 248  00000000000000000000000000000000  NOP
+ 252  00000000000000000000000000000000  NOP
+ 256  00100000000101010000000001100100  ADDI $s5, $zero, 100
+ 260  00000000000000000000000000000000  NOP
+ 264  00000000000000000000000000000000  NOP
+ 268  00000000000000000000000000000000  NOP
+ 272  00010000000000000000000000000010  BEQ  $zero, $zero, skip
+ 276  00000000000000000000000000000000  NOP
+ 280  00100000000101010000001111100111  ADDI $s5, $zero, 999
+ 284  00100000000101100000000011001000  ADDI $s6, $zero, 200
+
+
+=== FINAL MACHINE STATE ===
+Total Cycles: 76
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $s5 ($21):         100  (0x00000064)
+   $s6 ($22):         200  (0x000000c8)
+   $t8 ($24):         255  (0x000000ff)
+
+--- Memory (non-zero) ---
+  [   0]:          15  (0x0000000f)
+  [   4]:          50  (0x00000032)
+
+=== SIMULATION COMPLETE ===
+
+
+./mips_sim tests/test.asm --debug
+
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 47 ==========
+PC = 47
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=46
+  ID/EX: [NOP]
+    PC=45
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [SRL  $s2, $s0, 1]
+    PC=44
+    RegDst=1 ALUSrc=0 MemToReg=0 RegWrite=1 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=2, DestReg=$s2
+  MEM/WB: [NOP]
+    PC=43
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 48 ==========
+PC = 48
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=47
+  ID/EX: [NOP]
+    PC=46
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=45
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [SRL  $s2, $s0, 1]
+    PC=44
+    RegDst=1 ALUSrc=0 MemToReg=0 RegWrite=1 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=2, DestReg=$s2
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 49 ==========
+PC = 49
+
+--- Pipeline Registers ---
+  IF/ID: [SW   $t2, 0($zero)]
+    PC=48
+  ID/EX: [NOP]
+    PC=47
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=46
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=45
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 50 ==========
+PC = 50
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=49
+  ID/EX: [SW   $t2, 0($zero)]
+    PC=48
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=1 Branch=0 Jump=0
+    $zero=0, $t2=15, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=47
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=46
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 51 ==========
+PC = 51
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=50
+  ID/EX: [NOP]
+    PC=49
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [SW   $t2, 0($zero)]
+    PC=48
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=1 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=47
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 52 ==========
+PC = 52
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=51
+  ID/EX: [NOP]
+    PC=50
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=49
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [SW   $t2, 0($zero)]
+    PC=48
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=1 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 53 ==========
+PC = 53
+
+--- Pipeline Registers ---
+  IF/ID: [SW   $t4, 4($zero)]
+    PC=52
+  ID/EX: [NOP]
+    PC=51
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=50
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=49
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 54 ==========
+PC = 54
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=53
+  ID/EX: [SW   $t4, 4($zero)]
+    PC=52
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=1 Branch=0 Jump=0
+    $zero=0, $t4=50, SignExtImm=4, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=51
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=50
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 55 ==========
+PC = 55
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=54
+  ID/EX: [NOP]
+    PC=53
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [SW   $t4, 4($zero)]
+    PC=52
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=1 Branch=0 Jump=0
+    ALUResult=4, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=51
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 56 ==========
+PC = 56
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=55
+  ID/EX: [NOP]
+    PC=54
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=53
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [SW   $t4, 4($zero)]
+    PC=52
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=1 Branch=0 Jump=0
+    ALUResult=4, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 57 ==========
+PC = 57
+
+--- Pipeline Registers ---
+  IF/ID: [LW   $s3, 0($zero)]
+    PC=56
+  ID/EX: [NOP]
+    PC=55
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=54
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=53
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 58 ==========
+PC = 58
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=57
+  ID/EX: [LW   $s3, 0($zero)]
+    PC=56
+    RegDst=0 ALUSrc=1 MemToReg=1 RegWrite=1 MemRead=1 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $s3=0, SignExtImm=0, DestReg=$s3
+  EX/MEM: [NOP]
+    PC=55
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=54
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 59 ==========
+PC = 59
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=58
+  ID/EX: [NOP]
+    PC=57
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [LW   $s3, 0($zero)]
+    PC=56
+    RegDst=0 ALUSrc=1 MemToReg=1 RegWrite=1 MemRead=1 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$s3
+  MEM/WB: [NOP]
+    PC=55
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 60 ==========
+PC = 60
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=59
+  ID/EX: [NOP]
+    PC=58
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=57
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [LW   $s3, 0($zero)]
+    PC=56
+    RegDst=0 ALUSrc=1 MemToReg=1 RegWrite=1 MemRead=1 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, MemData=15, DestReg=$s3
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 61 ==========
+PC = 61
+
+--- Pipeline Registers ---
+  IF/ID: [LW   $s4, 4($zero)]
+    PC=60
+  ID/EX: [NOP]
+    PC=59
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=58
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=57
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 62 ==========
+PC = 62
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=61
+  ID/EX: [LW   $s4, 4($zero)]
+    PC=60
+    RegDst=0 ALUSrc=1 MemToReg=1 RegWrite=1 MemRead=1 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $s4=0, SignExtImm=4, DestReg=$s4
+  EX/MEM: [NOP]
+    PC=59
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=58
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 63 ==========
+PC = 63
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=62
+  ID/EX: [NOP]
+    PC=61
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [LW   $s4, 4($zero)]
+    PC=60
+    RegDst=0 ALUSrc=1 MemToReg=1 RegWrite=1 MemRead=1 MemWrite=0 Branch=0 Jump=0
+    ALUResult=4, DestReg=$s4
+  MEM/WB: [NOP]
+    PC=59
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 64 ==========
+PC = 64
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=63
+  ID/EX: [NOP]
+    PC=62
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=61
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [LW   $s4, 4($zero)]
+    PC=60
+    RegDst=0 ALUSrc=1 MemToReg=1 RegWrite=1 MemRead=1 MemWrite=0 Branch=0 Jump=0
+    ALUResult=4, MemData=50, DestReg=$s4
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 65 ==========
+PC = 65
+
+--- Pipeline Registers ---
+  IF/ID: [ADDI $s5, $zero, 100]
+    PC=64
+  ID/EX: [NOP]
+    PC=63
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=62
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=61
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 66 ==========
+PC = 66
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=65
+  ID/EX: [ADDI $s5, $zero, 100]
+    PC=64
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=1 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $s5=0, SignExtImm=100, DestReg=$s5
+  EX/MEM: [NOP]
+    PC=63
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=62
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 67 ==========
+PC = 67
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=66
+  ID/EX: [NOP]
+    PC=65
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [ADDI $s5, $zero, 100]
+    PC=64
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=1 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=100, DestReg=$s5
+  MEM/WB: [NOP]
+    PC=63
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 68 ==========
+PC = 68
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=67
+  ID/EX: [NOP]
+    PC=66
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=65
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [ADDI $s5, $zero, 100]
+    PC=64
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=1 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=100, DestReg=$s5
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 69 ==========
+PC = 69
+
+--- Pipeline Registers ---
+  IF/ID: [BEQ  $zero, $zero, skip]
+    PC=68
+  ID/EX: [NOP]
+    PC=67
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=66
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=65
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $s5 ($21):         100  (0x00000064)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 70 ==========
+PC = 70
+
+--- Pipeline Registers ---
+  IF/ID: [NOP]
+    PC=69
+  ID/EX: [BEQ  $zero, $zero, skip]
+    PC=68
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=1 Jump=0
+    $zero=0, $zero=0, SignExtImm=0, DestReg=$zero
+  EX/MEM: [NOP]
+    PC=67
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+  MEM/WB: [NOP]
+    PC=66
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $s5 ($21):         100  (0x00000064)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 71 ==========
+PC = 71
+
+--- Pipeline Registers ---
+  IF/ID: [empty]
+  ID/EX: [empty]
+  EX/MEM: [BEQ  $zero, $zero, skip]
+    PC=68
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=1 Jump=0
+    ALUResult=0, DestReg=$zero, BRANCH TAKEN to 71
+  MEM/WB: [NOP]
+    PC=67
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $s5 ($21):         100  (0x00000064)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 72 ==========
+PC = 72
+
+--- Pipeline Registers ---
+  IF/ID: [ADDI $s6, $zero, 200]
+    PC=71
+  ID/EX: [empty]
+  EX/MEM: [empty]
+  MEM/WB: [BEQ  $zero, $zero, skip]
+    PC=68
+    RegDst=0 ALUSrc=0 MemToReg=0 RegWrite=0 MemRead=0 MemWrite=0 Branch=1 Jump=0
+    ALUResult=0, DestReg=$zero
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $s5 ($21):         100  (0x00000064)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 73 ==========
+PC = 72
+
+--- Pipeline Registers ---
+  IF/ID: [empty]
+  ID/EX: [ADDI $s6, $zero, 200]
+    PC=71
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=1 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    $zero=0, $s6=0, SignExtImm=200, DestReg=$s6
+  EX/MEM: [empty]
+  MEM/WB: [empty]
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $s5 ($21):         100  (0x00000064)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 74 ==========
+PC = 72
+
+--- Pipeline Registers ---
+  IF/ID: [empty]
+  ID/EX: [empty]
+  EX/MEM: [ADDI $s6, $zero, 200]
+    PC=71
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=1 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=200, DestReg=$s6
+  MEM/WB: [empty]
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $s5 ($21):         100  (0x00000064)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 75 ==========
+PC = 72
+
+--- Pipeline Registers ---
+  IF/ID: [empty]
+  ID/EX: [empty]
+  EX/MEM: [empty]
+  MEM/WB: [ADDI $s6, $zero, 200]
+    PC=71
+    RegDst=0 ALUSrc=1 MemToReg=0 RegWrite=1 MemRead=0 MemWrite=0 Branch=0 Jump=0
+    ALUResult=200, DestReg=$s6
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $s5 ($21):         100  (0x00000064)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+========== CYCLE 76 ==========
+PC = 72
+
+--- Pipeline Registers ---
+  IF/ID: [empty]
+  ID/EX: [empty]
+  EX/MEM: [empty]
+  MEM/WB: [empty]
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $s5 ($21):         100  (0x00000064)
+   $s6 ($22):         200  (0x000000c8)
+   $t8 ($24):         255  (0x000000ff)
+================================
+
+=== FINAL MACHINE STATE ===
+Total Cycles: 76
+
+--- Register File ---
+   $t0 ($ 8):          10  (0x0000000a)
+   $t1 ($ 9):           5  (0x00000005)
+   $t2 ($10):          15  (0x0000000f)
+   $t3 ($11):           5  (0x00000005)
+   $t4 ($12):          50  (0x00000032)
+   $t5 ($13):          15  (0x0000000f)
+   $t6 ($14):         240  (0x000000f0)
+   $s0 ($16):           4  (0x00000004)
+   $s1 ($17):          16  (0x00000010)
+   $s2 ($18):           2  (0x00000002)
+   $s3 ($19):          15  (0x0000000f)
+   $s4 ($20):          50  (0x00000032)
+   $s5 ($21):         100  (0x00000064)
+   $s6 ($22):         200  (0x000000c8)
+   $t8 ($24):         255  (0x000000ff)
+
+--- Memory (non-zero) ---
+  [   0]:          15  (0x0000000f)
+  [   4]:          50  (0x00000032)
+
+=== SIMULATION COMPLETE ===
+PS C:\Users\abrid\OneDrive\Documents\VS Code School\CSCompArchitecture\MIPS-Simulator> 

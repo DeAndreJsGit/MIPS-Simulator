@@ -1,8 +1,6 @@
 # Ignore things we dont want to track
 .vscode/
 
-# Ignore output files
-results.txt
 
 # Ignore screenshots or presentation images
 screenshots/
